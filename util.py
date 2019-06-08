@@ -22,7 +22,7 @@ def use_cuda(var):
         return var
 
 def save_model(the_model, path):
-    if os.path.exists(path):
+    while os.path.exists(path):
         path = path + '_copy'
     print("saving model to ...", path)
     torch.save(the_model, path)
@@ -30,7 +30,7 @@ def save_model(the_model, path):
 
 def load_model(path):
     if not os.path.exists(path):
-        assert False, 'cannot find model: ' + path
+        raise ValueError('cannot find model: ' + path)
     print("loading model from ...", path)
     return torch.load(path)
 
